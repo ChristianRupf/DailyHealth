@@ -1,0 +1,266 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+header {
+  background-color: #10b981;
+  color: rgb(253, 253, 253);
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
+  padding: 2rem;
+}
+
+/* Estilos compartilhados entre botões */
+.humor-buttons button,
+.habitos button {
+  background-color: white;
+  border: 2px solid #10b981;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.humor-buttons button:hover,
+.habitos button:hover {
+  background-color: #d1fae5;
+}
+
+.humor-buttons i,
+.habitos i {
+  width: 24px;
+  height: 24px;
+  stroke: #10b981;
+}
+
+/* Estilos específicos para humor-buttons */
+.humor-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.humor-buttons button {
+  font-size: 2rem;
+}
+
+/* Estilos específicos para habitos */
+.habitos {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.habitos button {
+  font-size: 1.2rem;
+  border-color: #3b82f6;
+}
+
+.habitos button:hover {
+  background-color: #dbeafe;
+}
+
+/* Estilos para a lista de hábitos salvos */
+#habitos-salvos {
+  margin-top: 1rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Estilos para o histórico */
+#historico {
+  margin-top: 2rem;
+}
+
+.dia-bloco {
+  background-color: #f9fafb;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 5px solid #10b981;
+  border-radius: 0.5rem;
+}
+
+.acoes-dia {
+  margin-top: 0.5rem;
+}
+
+.acoes-dia button {
+  background: none;
+  border: none;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.acoes-dia i {
+  width: 20px;
+  height: 20px;
+  stroke: #6b7280;
+  transition: stroke 0.2s;
+}
+
+.acoes-dia button:hover i {
+  stroke: #ef4444;
+}
+
+/* Estilos para seleção de data */
+.selecionar-dia {
+  margin-bottom: 1rem;
+}
+
+.selecionar-dia input {
+  padding: 0.5rem;
+  border: 2px solid #10b981;
+  border-radius: 0.5rem;
+}
+
+/*Estilos grafico semanal*/
+.estatisticas {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.graficos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.grafico-box {
+  width: 100%;
+  height: 400px; /* Altura aumentada */
+  position: relative; /* Importante para o canvas */
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block; /* Remove espaços extras */
+}
+
+/* Estatísticas e Gráficos */
+.estatisticas {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.controles-grafico {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controles-grafico select {
+  padding: 0.5rem;
+  border: 2px solid #10b981;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+
+.grafico-box {
+  width: 100%;
+  height: 300px; 
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.adicionar-habito {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.adicionar-habito input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid #10b981;
+  border-radius: 0.5rem;
+}
+
+/* Melhoria de renderização para gráficos */
+canvas {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* ===== NOVOS ESTILOS PARA HÁBITOS ===== */
+.adicionar-habito {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.adicionar-habito input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #10b981;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.adicionar-habito button {
+  padding: 10px 15px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.habitos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.habitos-container button {
+  padding: 10px 15px;
+  background-color: white;
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s;
+}
+
+.habitos-container button:hover {
+  background-color: #dbeafe;
+}
+
+.habitos-container button.selecionado {
+  background-color: #3b82f6;
+  color: white;
+}
