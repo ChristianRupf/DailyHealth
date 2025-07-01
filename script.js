@@ -420,6 +420,118 @@ function renderizarBotoesHabitos() {
   lucide.createIcons();
 }
 
+// ===== SISTEMA DE ABAS =====
+function setupTabs() {
+  const tabs = document.querySelectorAll('.tab-btn');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove classe active de todas as abas
+      document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      // Adiciona apenas na aba clicada
+      tab.classList.add('active');
+      const tabId = tab.getAttribute('data-tab');
+      document.getElementById(`${tabId}-tab`).classList.add('active');
+      
+      // Atualiza gráficos quando volta para aba de hábitos
+      if (tabId === 'habitos') {
+        atualizarGraficos();
+      }
+    });
+  });
+}
+
+// ===== POMODORO TIMER =====
+let pomodoroInterval;
+let minutes = 25;
+let seconds = 0;
+let isRunning = false;
+let cyclesCompleted = 0;
+let isBreakTime = false;
+
+function updatePomodoroDisplay() {
+  const display = document.querySelector('.timer-display');
+  display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  
+  // Atualiza cor do timer
+  if (isBreakTime) {
+    display.style.color = '#10b981'; // Verde para descanso
+  } else {
+    display.style.color = '#ef4444'; // Vermelho para trabalho
+  }
+}
+
+function startPomodoro() {
+  if (isRunning) return;
+  
+  isRunning = true;
+  const statusElement = document.querySelector('.pomodoro-status');
+  statusElement.textContent = isBreakTime ? "Descanso... 🌿" : "Foco no trabalho! 💻";
+  
+  pomodoroInterval = setInterval(() => {
+    if (seconds === 0) {
+      if (minutes === 0) {
+        completePomodoroCycle();
+        return;
+      }
+      minutes--;
+      seconds = 59;
+    } else {
+      seconds--;
+    }
+    updatePomodoroDisplay();
+  }, 1000);
+}
+
+function pausePomodoro() {
+  clearInterval(pomodoroInterval);
+  isRunning = false;
+  document.querySelector('.pomodoro-status').textContent = "Pausado ⏸️";
+}
+
+function resetPomodoro() {
+  clearInterval(pomodoroInterval);
+  isRunning = false;
+  isBreakTime = false;
+  minutes = 25;
+  seconds = 0;
+  updatePomodoroDisplay();
+  document.querySelector('.pomodoro-status').textContent = "Pronto para começar";
+}
+
+function completePomodoroCycle() {
+  clearInterval(pomodoroInterval);
+  isRunning = false;
+  
+  if (!isBreakTime) {
+    // Completo um ciclo de trabalho
+    cyclesCompleted++;
+    document.querySelector('.pomodoro-cycles span').textContent = cyclesCompleted;
+    isBreakTime = true;
+    minutes = 5; // Pausa curta
+    document.querySelector('.pomodoro-status').textContent = "Ciclo completo! 🎉 Hora de descansar";
+    
+    // Notificação
+    if (Notification.permission === 'granted') {
+      new Notification('Tempo acabou!', {
+        body: 'Hora de uma pausa de 5 minutos'
+      });
+    }
+    
+    // Auto-inicia a pausa
+    setTimeout(() => startPomodoro(), 1000);
+  } else {
+    // Fim do descanso
+    isBreakTime = false;
+    minutes = 25; // Volta ao tempo de trabalho
+    document.querySelector('.pomodoro-status').textContent = "Pronto para mais um ciclo!";
+  }
+  
+  updatePomodoroDisplay();
+}
+
 // ============== INICIALIZAÇÃO ====================
 document.addEventListener('DOMContentLoaded', function() {
   // Configura data padrão
@@ -434,6 +546,20 @@ document.addEventListener('DOMContentLoaded', function() {
   renderizar();
   renderizarBotoesHabitos();  
   atualizarGraficos();
+  setupTabs();
+  
+  // Inicializa Pomodoro
+  updatePomodoroDisplay();
+  document.getElementById('start-pomodoro').addEventListener('click', startPomodoro);
+  document.getElementById('pause-pomodoro').addEventListener('click', pausePomodoro);
+  document.getElementById('reset-pomodoro').addEventListener('click', resetPomodoro);
+  
+  // Solicita permissão para notificações
+  if ('Notification' in window) {
+    Notification.requestPermission();
+  }
+  
+  // Atualiza ícones
   lucide.createIcons();
 });
 
