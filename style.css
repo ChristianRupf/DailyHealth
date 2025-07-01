@@ -1,3 +1,4 @@
+/* ===== ESTILOS GERAIS ===== */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -8,7 +9,7 @@ body {
 
 header {
   background-color: #10b981;
-  color: rgb(253, 253, 253);
+  color: #fdfdfd;
   padding: 1rem;
   text-align: center;
 }
@@ -17,100 +18,53 @@ main {
   padding: 2rem;
 }
 
-/* Estilos compartilhados entre botões */
-.humor-buttons button,
-.habitos button {
-  background-color: white;
-  border: 2px solid #10b981;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.humor-buttons button:hover,
-.habitos button:hover {
-  background-color: #d1fae5;
-}
-
-.humor-buttons i,
-.habitos i {
-  width: 24px;
-  height: 24px;
-  stroke: #10b981;
-}
-
-/* Estilos específicos para humor-buttons */
-.humor-buttons {
+/* ===== SISTEMA DE ABAS ===== */
+.menu {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
 }
 
-.humor-buttons button {
-  font-size: 2rem;
-}
-
-/* Estilos específicos para habitos */
-.habitos {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  flex-wrap: wrap;
-}
-
-.habitos button {
-  font-size: 1.2rem;
-  border-color: #3b82f6;
-}
-
-.habitos button:hover {
-  background-color: #dbeafe;
-}
-
-/* Estilos para a lista de hábitos salvos */
-#habitos-salvos {
-  margin-top: 1rem;
-  list-style: none;
-  padding-left: 0;
-}
-
-/* Estilos para o histórico */
-#historico {
-  margin-top: 2rem;
-}
-
-.dia-bloco {
-  background-color: #f9fafb;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-left: 5px solid #10b981;
-  border-radius: 0.5rem;
-}
-
-.acoes-dia {
-  margin-top: 0.5rem;
-}
-
-.acoes-dia button {
+.tab-btn {
+  padding: 0.5rem 1.5rem;
   background: none;
   border: none;
-  margin-right: 0.5rem;
   cursor: pointer;
+  font-size: 1rem;
+  color: #6b7280;
+  position: relative;
+  transition: all 0.2s;
 }
 
-.acoes-dia i {
-  width: 20px;
-  height: 20px;
-  stroke: #6b7280;
-  transition: stroke 0.2s;
+.tab-btn:hover {
+  color: #10b981;
 }
 
-.acoes-dia button:hover i {
-  stroke: #ef4444;
+.tab-btn.active {
+  color: #10b981;
+  font-weight: 600;
 }
 
-/* Estilos para seleção de data */
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #10b981;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ===== COMPONENTES DE HÁBITOS ===== */
 .selecionar-dia {
   margin-bottom: 1rem;
 }
@@ -121,96 +75,32 @@ main {
   border-radius: 0.5rem;
 }
 
-/*Estilos grafico semanal*/
-.estatisticas {
-  margin-top: 2rem;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.graficos-container {
+.humor-buttons {
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
 }
 
-.grafico-box {
-  width: 100%;
-  height: 400px; /* Altura aumentada */
-  position: relative; /* Importante para o canvas */
-  padding: 1rem;
-  background-color: #f9fafb;
-  border-radius: 0.5rem;
-}
-
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block; /* Remove espaços extras */
-}
-
-/* Estatísticas e Gráficos */
-.estatisticas {
-  margin-top: 2rem;
-  padding: 1rem;
+.humor-buttons button {
   background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.controles-grafico {
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.controles-grafico select {
-  padding: 0.5rem;
   border: 2px solid #10b981;
   border-radius: 0.5rem;
-  background-color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 2rem;
 }
 
-.grafico-box {
-  width: 100%;
-  height: 300px; 
-  padding: 1rem;
-  background-color: #f9fafb;
-  border-radius: 0.5rem;
+.humor-buttons button:hover {
+  background-color: #d1fae5;
 }
 
-canvas {
-  width: 100% !important;
-  height: 100% !important;
+.humor-buttons i {
+  width: 24px;
+  height: 24px;
+  stroke: #10b981;
 }
 
-.adicionar-habito {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.adicionar-habito input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 2px solid #10b981;
-  border-radius: 0.5rem;
-}
-
-/* Melhoria de renderização para gráficos */
-canvas {
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  image-rendering: pixelated;
-  -ms-interpolation-mode: nearest-neighbor;
-}
-
-/* ===== NOVOS ESTILOS PARA HÁBITOS ===== */
 .adicionar-habito {
   display: flex;
   gap: 10px;
@@ -254,6 +144,7 @@ canvas {
   align-items: center;
   gap: 5px;
   transition: all 0.2s;
+  font-size: 1.2rem;
 }
 
 .habitos-container button:hover {
@@ -263,4 +154,145 @@ canvas {
 .habitos-container button.selecionado {
   background-color: #3b82f6;
   color: white;
+}
+
+#habitos-salvos {
+  margin-top: 1rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* ===== HISTÓRICO ===== */
+#historico {
+  margin-top: 2rem;
+}
+
+.dia-bloco {
+  background-color: #f9fafb;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 5px solid #10b981;
+  border-radius: 0.5rem;
+}
+
+.acoes-dia {
+  margin-top: 0.5rem;
+}
+
+.acoes-dia button {
+  background: none;
+  border: none;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.acoes-dia i {
+  width: 20px;
+  height: 20px;
+  stroke: #6b7280;
+  transition: stroke 0.2s;
+}
+
+.acoes-dia button:hover i {
+  stroke: #ef4444;
+}
+
+/* ===== ESTATÍSTICAS E GRÁFICOS ===== */
+.estatisticas {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.controles-grafico {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controles-grafico select {
+  padding: 0.5rem;
+  border: 2px solid #10b981;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+
+.grafico-box {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+/* ===== POMODORO ===== */
+.pomodoro-container {
+  text-align: center;
+  max-width: 300px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.timer-display {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  color: #1f2937;
+  font-family: monospace;
+}
+
+.pomodoro-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.pomodoro-controls button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #10b981;
+  color: white;
+  transition: all 0.2s;
+}
+
+.pomodoro-controls button:hover {
+  background-color: #0d9c6e;
+}
+
+.pomodoro-cycles {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.pomodoro-status {
+  font-style: italic;
+  color: #4b5563;
+  min-height: 1.5rem;
+}
+
+/* ===== OTIMIZAÇÕES DE RENDERIZAÇÃO ===== */
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
 }
