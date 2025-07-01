@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rastreador de Hábitos</title>
+  <title>Daily Health</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -16,65 +16,83 @@
   </header>
 
   <main>
-    <p>Vamos começar a rastrear seus hábitos.</p>
-    
-    <div class="selecionar-dia">
-      <label for="data-selecionada">Selecionar data:</label>
-      <input type="date" id="data-selecionada">
+    <!-- Menu de abas -->
+    <div class="menu">
+      <button class="tab-btn active" data-tab="habitos">Hábitos</button>
+      <button class="tab-btn" data-tab="pomodoro">Pomodoro</button>
     </div>
 
-    <section>
-      <p><b>Como você se sente hoje?</b></p>
-      <div class="humor-buttons">
-        <button onclick="salvarHumor('feliz')" aria-label="Feliz"><i data-lucide="smile"></i></button>
-        <button onclick="salvarHumor('neutro')" aria-label="Neutro"><i data-lucide="meh"></i></button>
-        <button onclick="salvarHumor('triste')" aria-label="Triste"><i data-lucide="frown"></i></button>
+    <!-- Aba de Hábitos -->
+    <div id="habitos-tab" class="tab-content active">
+      <p>Vamos começar a rastrear seus hábitos.</p>
+      
+      <div class="selecionar-dia">
+        <label for="data-selecionada">Selecionar data:</label>
+        <input type="date" id="data-selecionada">
       </div>
-      <p id="humor-salvo"></p>
-    </section>
 
-    <section>
-      <p><b>Quais hábitos você fez hoje?</b></p>
-      <!-- Adicione esta seção para novos hábitos -->
-     <div class="adicionar-habito">
-  <input type="text" id="novo-habito-input" placeholder="Ex: Meditação, Leitura...">
-  <button onclick="adicionarNovoHabito()">
-    <i data-lucide="plus"></i> Adicionar
-  </button>
-</div>
+      <section>
+        <p><b>Como você se sente hoje?</b></p>
+        <div class="humor-buttons">
+          <button onclick="salvarHumor('feliz')" aria-label="Feliz"><i data-lucide="smile"></i></button>
+          <button onclick="salvarHumor('neutro')" aria-label="Neutro"><i data-lucide="meh"></i></button>
+          <button onclick="salvarHumor('triste')" aria-label="Triste"><i data-lucide="frown"></i></button>
+        </div>
+        <p id="humor-salvo"></p>
+      </section>
 
-<!-- Container dos botões (MODIFICADO) -->
-<div class="habitos-container" id="habitos-container">
-  <!-- Os botões serão gerados automaticamente pelo JavaScript -->
-</div>
+      <section>
+        <p><b>Quais hábitos você fez hoje?</b></p>
+        <div class="adicionar-habito">
+          <input type="text" id="novo-habito-input" placeholder="Ex: Meditação, Leitura...">
+          <button onclick="adicionarNovoHabito()">
+            <i data-lucide="plus"></i> Adicionar
+          </button>
+        </div>
 
-<!-- Lista de hábitos salvos (JÁ EXISTIA) -->
-<ul id="habitos-salvos"></ul>
-    </section>
+        <div class="habitos-container" id="habitos-container">
+          <!-- Os botões serão gerados automaticamente pelo JavaScript -->
+        </div>
 
-    <section class="estatisticas">
-      <h2>Estatísticas de Humor</h2>
-      <div class="controles-grafico">
-        <label for="periodo">Período:</label>
-        <select id="periodo" onchange="atualizarGraficos()">
-          <option value="7">Últimos 7 dias</option>
-          <option value="14">Últimas 2 semanas</option>
-          <option value="30">Últimos 30 dias</option>
-        </select>
+        <ul id="habitos-salvos"></ul>
+      </section>
+
+      <section class="estatisticas">
+        <h2>Estatísticas de Humor</h2>
+        <div class="controles-grafico">
+          <label for="periodo">Período:</label>
+          <select id="periodo" onchange="atualizarGraficos()">
+            <option value="7">Últimos 7 dias</option>
+            <option value="14">Últimas 2 semanas</option>
+            <option value="30">Últimos 30 dias</option>
+          </select>
+        </div>
+        <div class="grafico-box">
+          <canvas id="humorSemanal"></canvas>
+        </div>
+      </section>
+
+      <hr>
+      <div id="historico"></div>
+    </div>
+
+    <!-- Aba de Pomodoro -->
+    <div id="pomodoro-tab" class="tab-content">
+      <div class="pomodoro-container">
+        <div class="timer-display">25:00</div>
+        <div class="pomodoro-controls">
+          <button id="start-pomodoro"><i data-lucide="play"></i></button>
+          <button id="pause-pomodoro"><i data-lucide="pause"></i></button>
+          <button id="reset-pomodoro"><i data-lucide="rotate-ccw"></i></button>
+        </div>
+        <div class="pomodoro-cycles">Ciclos completos: <span>0</span></div>
+        <div class="pomodoro-status">Pronto para começar</div>
       </div>
-      <div class="grafico-box">
-        <canvas id="humorSemanal"></canvas>
-      </div>
-    </section>
-
-    <hr>
-    <div id="historico"></div>
+    </div>
   </main>
 
-  <!-- Apenas um script.js no final do body -->
   <script src="script.js"></script>
   <script>
-    // Inicializa os ícones Lucide quando o DOM estiver pronto
     document.addEventListener('DOMContentLoaded', function() {
       lucide.createIcons();
     });
